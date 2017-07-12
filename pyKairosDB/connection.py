@@ -17,7 +17,7 @@ class KairosDBConnection(object):
     :param ssl: Whether or not to use ssl for this connection.
     """
 
-    def __init__(self, server='localhost', port='8080', ssl=False):
+    def __init__(self, server='localhost', port='8080', ssl=False, user=None, passw=None):
         """
         :type server: str
         :param server: the host to connect to that is running KairosDB
@@ -29,6 +29,8 @@ class KairosDBConnection(object):
         self.ssl  = ssl
         self.server = server
         self.port = port
+        self.user = user
+        self.passw = passw
 
         # We shouldn't have to worry about efficient re-use of connections, pooling, etc. See:
         # http://docs.python-requests.org/en/latest/user/advanced/#keep-alive

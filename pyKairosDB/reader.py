@@ -225,7 +225,10 @@ def read(conn, metric_names, start_absolute=None, start_relative=None,
         # print query
     if query_modifying_function is not None:
         query_modifying_function(query)
-    r = requests.post(read_url, json.dumps(query))
+    if conn.user is not None:
+        r = requests.post(read_url, json.dumps(query), auth=(conn.user, conn.passw) )
+    else:
+        r = requests.post(read_url, json.dumps(query))
     # print "Results are: ", r.json()
     return _change_timestamps_to_python(r.content)
 

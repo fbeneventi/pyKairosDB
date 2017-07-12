@@ -2,7 +2,7 @@ import connection
 import util
 import metadata
 
-def connect(server='localhost', port='8080', ssl=False):
+def connect(server='localhost', port='8080', ssl=False, user=None, passw=None):
     """
     :type server: str
     :param server: the host to connect to that is running KairosDB
@@ -17,7 +17,7 @@ def connect(server='localhost', port='8080', ssl=False):
     This wraps the pyKairosDB.connection.KairosDBConnection constructor and returns an
     instance of that class.
     """
-    return connection.KairosDBConnection(server, port, ssl)
+    return connection.KairosDBConnection(server, port, ssl, user, passw)
 
 
 

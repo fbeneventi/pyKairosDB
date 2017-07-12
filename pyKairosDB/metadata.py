@@ -14,7 +14,10 @@ def get_server_version(conn):
     :return: String containing the version of the KairosDB server.
     """
     version_path = "api/v1/version"
-    return json.loads(requests.get("{0.schema}://{0.server}:{0.port}/{1}".format(conn, version_path)).content)['version']
+    if conn.user is not None:
+        return json.loads(requests.get("{0.schema}://{0.server}:{0.port}/{1}".format(conn, version_path), auth=(conn.user, conn.passw)).content)['version']
+    else:
+        return json.loads(requests.get("{0.schema}://{0.server}:{0.port}/{1}".format(conn, version_path)).content)['version']
 
 def get_all_metric_names(conn):
     """
@@ -25,4 +28,7 @@ def get_all_metric_names(conn):
     :return: list containing the strings of all of the metric names that the server has recorded.
     """
     all_names_path = "api/v1/metricnames"
-    return json.loads(requests.get("{0.schema}://{0.server}:{0.port}/{1}".format(conn, all_names_path)).content)['results']
+    if conn.user is not None:
+        return json.loads(requests.get("{0.schema}://{0.server}:{0.port}/{1}".format(conn, all_names_path), auth=(conn.user, conn.passw)).content)['results']
+    else:
+        return json.loads(requests.get("{0.schema}://{0.server}:{0.port}/{1}".format(conn, all_names_path)).content)['results']
